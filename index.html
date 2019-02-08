@@ -46,7 +46,7 @@
               item.trim();
               var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">' +item+'</a></li>';
               //var tag = '<li><a href="#!'+item+'" onclick="fetchPage(\''+item+'\')">'+item+'</a></li>';
-              tags=tag+tag;
+              tags=tags+tag;
               i=i+1;
             }
             document.querySelector('#nav').innerHTML=tags;
