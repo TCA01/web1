@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피파 온라인 Search</title>
+</head>
+ 
+<body>
+ 
+    <input type="text" id="query">
+    <button id="search">유저 검색</button><br>
+    <input type="text" id="query2">
+    <button id="search2">선수 이미지 조회</button>
+ 
+    <div></div>
+ 
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+ 
+    <script>
+        $(document).ready(function () {
+            var pageNum = 1;
+ 
+            $("#search").click(function () {
+                $("div").html("");
+ 
+                $.ajax({
+                    method: "GET",
+                    url: "https://api.nexon.co.kr/fifaonline4/v1.0/users?",
+                    data: { nickname: $("#query").val()},
+                    headers: {Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMjEzMDg3ODY3MyIsImF1dGhfaWQiOiIyIiwidG9rZW5fdHlwZSI6IkFjY2Vzc1Rva2VuIiwic2VydmljZV9pZCI6IjQzMDAxMTQ4MSIsIlgtQXBwLVJhdGUtTGltaXQiOiI1MDA6MTAiLCJuYmYiOjE2MjE4MTE2MTgsImV4cCI6MTYzNzM2MzYxOCwiaWF0IjoxNjIxODExNjE4fQ.Gz4K7N8NJry8LaecICgg_rqa-VZG3x8bLRCvvVtX06U"} // ########부분에 본인의 REST API 키를 넣어주세요.
+ 
+                })
+                .done(function (msg) {
+                    console.log(msg);
+                  //  for (var i = 0; i < msg.documents.length; i++){
+                        $("div").append("<strong>별명:</strong> " + msg.nickname+"<br>");
+                        $("div").append("<strong>레벨:</strong> " + msg.level+"<br>");
+                     //   $("div").append("<h2><a href='"+ msg.documents[i].url +"'>" + msg.documents[i].title + "</a></h2>");
+                    //    $("div").append("<strong>저자:</strong> " + msg.documents[i].authors + "<br>");
+                      //  $("div").append("<strong>출판사:</strong> " + msg.documents[i].publisher + "<br>");
+                      //  $("div").append("<strong>요약:</strong> " + msg.documents[i].contents + "...<br>");
+                      //  $("div").append("<img src='" + msg.documents[i].thumbnail + "'/><br>");
+                 //  }
+                });
+            })
+            /*
+            $.getJSON( "https://static.api.nexon.co.kr/fifaonline4/latest/spid.json", function( json ) {
+                console.log( "JSON Data: " + json[0].id);
+                console.log( "JSON Data: " + json[0].name);
+                });
+               */
+            $("#search2").click(function () {
+                $("div").html("");
+ 
+                $.ajax({
+                    method: "GET",
+                    url: "https://static.api.nexon.co.kr/fifaonline4/latest/spid.json",
+                    data: {},
+                    dataType: "json",
+                    headers: {Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiMjEzMDg3ODY3MyIsImF1dGhfaWQiOiIyIiwidG9rZW5fdHlwZSI6IkFjY2Vzc1Rva2VuIiwic2VydmljZV9pZCI6IjQzMDAxMTQ4MSIsIlgtQXBwLVJhdGUtTGltaXQiOiI1MDA6MTAiLCJuYmYiOjE2MjE4MTE2MTgsImV4cCI6MTYzNzM2MzYxOCwiaWF0IjoxNjIxODExNjE4fQ.Gz4K7N8NJry8LaecICgg_rqa-VZG3x8bLRCvvVtX06U"}, // ########부분에 본인의 REST API 키를 넣어주세요.
+                    success: function (result) {
+                            console.log(result);
+                     },
+                    error: function () {
+                            console.log("error");
+                     }    
+                })
+                /*
+                .done(function (msg) {
+                    console.log(msg);
+                    for (var i = 0; i < msg.length; i++){
+                        $("div").append("<strong>별명:</strong> " + msg.id+"<br>");
+                        $("div").append("<strong>레벨:</strong> " + msg.name+"<br>");
+                   }
+                }); */
+            })
+            
+ 
+        }) 
+ 
+        
+    </script>
+
+    /* 실패한 프로젝트.........별명과 아이디는 얻었는데.... json파일의 get이 안된다 */
+</body>
+ 
+</html>
